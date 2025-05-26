@@ -40,4 +40,6 @@ public class NotificationService {
     public List<Notification> getNotificationsForUser (Users user) {
         return notificationRepository.findByUserOrderByCreatedAtDesc(user);
     }
+
+
 }
