@@ -41,5 +41,16 @@ public class NotificationService {
         return notificationRepository.findByUserOrderByCreatedAtDesc(user);
     }
 
+    public Notification markNotificationAsRead(Integer notificationId, Users user) {
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new IllegalArgumentException("Notification not found"));
+
+        if (notification.getUser() == null || notification.getUser().getId() != user.getId()) {
+            throw new IllegalArgumentException("You are not authorized to update this notification");
+        }
+
+        notification.setIsRead(true);
+        return notificationRepository.save(notification);
+    }
 
 }
